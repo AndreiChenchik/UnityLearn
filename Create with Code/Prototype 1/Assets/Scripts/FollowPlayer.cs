@@ -5,7 +5,8 @@ using UnityEngine;
 public class FollowPlayer : MonoBehaviour
 {
     public GameObject player;
-    private Vector3 offset = new Vector3(0, 5, -7);
+    private Vector3 cameraOffset = new Vector3(0, 5, -7);
+    private Vector3 cameraAngle = new Vector3(30, 0, 0);
 
     // Start is called before the first frame update
     void Start()
@@ -16,8 +17,12 @@ public class FollowPlayer : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        // Offset the camera behind the player by adding to the player's position
-        // transform.forward = player.transform.forward;
-        transform.position = player.transform.position + offset;
+        // Sync camera with player
+        transform.forward = player.transform.forward;
+        transform.position = player.transform.position;
+
+        // Offset camera back 
+        transform.Translate(cameraOffset, Space.Self);
+        transform.Rotate(cameraAngle);
     }
 }
